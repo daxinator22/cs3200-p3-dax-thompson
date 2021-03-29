@@ -1,0 +1,4 @@
+include ':WatchStarter'
+include ':API'
+include ':ManagerApp'
+rootProject.name = "cs3200-p1-dax-thompson"

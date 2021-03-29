@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "325199274473",
+    "firebase_url": "https://cs3200-p1-dax-thompson-default-rtdb.firebaseio.com",
+    "project_id": "cs3200-p1-dax-thompson",
+    "storage_bucket": "cs3200-p1-dax-thompson.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325199274473:android:bbb0054dd88d629df2eb78",
+        "android_client_info": {
+          "package_name": "com.daxthompsonproject1.clientapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325199274473-3evndan38h4at90stkbbliekmlfl5gjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvqdI6ebnBe3PxQX7KMQwD7fWHyaSbcr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325199274473-3evndan38h4at90stkbbliekmlfl5gjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325199274473:android:2df6e9c7a002d08af2eb78",
+        "android_client_info": {
+          "package_name": "com.daxthompsonproject1.managerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325199274473-3evndan38h4at90stkbbliekmlfl5gjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvqdI6ebnBe3PxQX7KMQwD7fWHyaSbcr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325199274473-3evndan38h4at90stkbbliekmlfl5gjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
