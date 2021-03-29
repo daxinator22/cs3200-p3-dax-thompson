@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Android3200StarterApplication">
-        <activity android:name="com.daxthompsonproject1.phoneapp.HomeActivity">
+        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
