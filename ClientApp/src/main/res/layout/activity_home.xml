@@ -24,17 +24,22 @@
             android:layout_height="wrap_content"
             android:text="Sign Out"/>
 
+        <RadioGroup
+            android:id="@+id/managers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/makeReservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Make Reservation"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <LinearLayout
             android:id="@+id/reservations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No reservations"/>
+            android:orientation="vertical"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

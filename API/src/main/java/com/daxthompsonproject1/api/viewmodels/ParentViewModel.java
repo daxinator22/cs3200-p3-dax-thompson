@@ -52,7 +52,7 @@ public abstract class ParentViewModel extends ViewModel {
                     userDataTable.get().addOnCompleteListener(task -> {
                         DataSnapshot snapshot = task.getResult();
                         if(snapshot.child(user.getValue().uid).getValue() != null) {
-                            updateUserData(snapshot);
+                            updateUserData(snapshot.child(user.getValue().uid));
                         }
                     });
 
@@ -66,7 +66,7 @@ public abstract class ParentViewModel extends ViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(user.getValue() != null){
-                    updateUserData(snapshot);
+                    updateUserData(snapshot.child(user.getValue().uid));
                 }
             }
 
@@ -80,9 +80,7 @@ public abstract class ParentViewModel extends ViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(user.getValue() != null && userData.getValue() != null) {
-                    waitlist.setValue(new ArrayList<>());
                     updateWaitList(snapshot);
-                    waitlist.setValue(waitlist.getValue());
                 }
             }
 
@@ -126,6 +124,10 @@ public abstract class ParentViewModel extends ViewModel {
 
     public void signOut() {
         auth.signOut();
+    }
+
+    public void removeReservation(Reservation r){
+        this.reservationTable.child(r.id).removeValue();
     }
 
     protected abstract void defineUserDataTable();

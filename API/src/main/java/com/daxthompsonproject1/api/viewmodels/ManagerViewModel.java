@@ -3,10 +3,13 @@ package com.daxthompsonproject1.api.viewmodels;
 import androidx.annotation.NonNull;
 
 import com.daxthompsonproject1.api.models.ManagerData;
+import com.daxthompsonproject1.api.models.Reservation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class ManagerViewModel extends ParentViewModel{
 
@@ -35,7 +38,15 @@ public class ManagerViewModel extends ParentViewModel{
 
     @Override
     protected void updateWaitList(DataSnapshot snapshot) {
+        this.waitlist.setValue(new ArrayList<>());
 
+        for(DataSnapshot child : snapshot.getChildren()){
+            if(child.child("managerUid").getValue().equals(this.userData.getValue().uid)){
+                Reservation r = child.getValue(Reservation.class);
+                r.id = child.getKey();
+                waitlist.getValue().add(r);
+            }
+        }
     }
 
 }

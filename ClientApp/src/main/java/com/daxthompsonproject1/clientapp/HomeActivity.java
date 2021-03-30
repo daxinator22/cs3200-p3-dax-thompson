@@ -7,7 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
+import com.daxthompsonproject1.api.models.ManagerData;
+import com.daxthompsonproject1.api.models.Reservation;
 import com.daxthompsonproject1.api.viewmodels.ClientViewModel;
 import com.daxthompsonproject1.api.viewmodels.ManagerViewModel;
 
@@ -41,14 +47,41 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        AppCompatButton makeReservation = findViewById(R.id.makeReservation);
-        makeReservation.setOnClickListener(view -> {
-            viewModel.makeReservation("test");
+        RadioGroup managers = findViewById(R.id.managers);
+        viewModel.getManagers().observe(this, managerList -> {
+            for(ManagerData manager : viewModel.getManagers().getValue()){
+                RadioButton managerOption = new RadioButton(this);
+                managerOption.setText(manager.company);
+
+                managers.addView(managerOption);
+            }
         });
 
-        AppCompatTextView reservations = findViewById(R.id.reservations);
-        viewModel.getWaitList().observe(this, waitlist -> {
-//           reservations.setText(viewModel.getWaitList().getValue().toString());
+        AppCompatButton makeReservation = findViewById(R.id.makeReservation);
+        makeReservation.setOnClickListener(view -> {
+            int selected = managers.getCheckedRadioButtonId();
+            RadioButton button = findViewById(selected);
+            if(button != null) {
+                viewModel.makeReservation(button.getText().toString());
+            }
+            managers.clearCheck();
         });
+
+        LinearLayout reservations = findViewById(R.id.reservations);
+        viewModel.getWaitList().observe(this, waitlist -> {
+            reservations.removeAllViews();
+            for(Reservation r : viewModel.getWaitList().getValue()) {
+                LinearLayout container = r.render(this);
+
+                reservations.addView(container);
+                container.setOnClickListener(view -> {
+                    reservations.removeView(container);
+                    this.viewModel.removeReservation(r);
+                });
+            }
+        });
+
+
+
     }
 }

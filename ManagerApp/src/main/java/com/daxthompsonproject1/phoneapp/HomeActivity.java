@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.daxthompsonproject1.api.Verify;
+import com.daxthompsonproject1.api.models.Reservation;
 import com.daxthompsonproject1.api.viewmodels.ManagerViewModel;
 
 public class HomeActivity extends AppCompatActivity {
@@ -39,6 +41,20 @@ public class HomeActivity extends AppCompatActivity {
             if(userData != null){
                 userDataText.setText(userData.toString());
             }
+        });
+
+        LinearLayout reservations = findViewById(R.id.reservations);
+        viewModel.getWaitList().observe(this, waitlist -> {
+            reservations.removeAllViews();
+
+           for(Reservation r : viewModel.getWaitList().getValue()){
+               LinearLayout container = r.render(this);
+               container.setOnClickListener(view ->{
+                   reservations.removeView(container);
+               });
+
+               reservations.addView(container);
+           }
         });
 
     }
