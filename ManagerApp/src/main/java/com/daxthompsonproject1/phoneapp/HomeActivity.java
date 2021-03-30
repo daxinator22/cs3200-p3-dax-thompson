@@ -1,6 +1,7 @@
 package com.daxthompsonproject1.phoneapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +21,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         this.viewModel = new ViewModelProvider(this).get(ManagerViewModel.class);
+
+        AppCompatButton signOut = findViewById(R.id.signOut);
+        signOut.setOnClickListener(view -> {
+            viewModel.signOut();
+        });
 
         AppCompatTextView userData = findViewById(R.id.userData);
         viewModel.getUser().observe(this, user ->{
