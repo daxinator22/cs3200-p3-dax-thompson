@@ -51,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
                LinearLayout container = r.render(this);
                container.setOnClickListener(view ->{
                    reservations.removeView(container);
+                   viewModel.removeReservation(r);
                });
 
                reservations.addView(container);

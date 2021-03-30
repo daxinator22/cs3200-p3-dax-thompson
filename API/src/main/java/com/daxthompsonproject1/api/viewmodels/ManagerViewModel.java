@@ -47,6 +47,8 @@ public class ManagerViewModel extends ParentViewModel{
                 waitlist.getValue().add(r);
             }
         }
+
+        this.waitlist.setValue(this.waitlist.getValue());
     }
 
 }
