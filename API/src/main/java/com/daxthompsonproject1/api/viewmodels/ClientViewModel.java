@@ -1,22 +1,18 @@
 package com.daxthompsonproject1.api.viewmodels;
 
-import androidx.annotation.NonNull;
-
 import com.daxthompsonproject1.api.models.ManagerData;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ManagerViewModel extends ParentViewModel{
+public class ClientViewModel extends ParentViewModel{
 
-    public ManagerViewModel(){
+    public ClientViewModel(){
         super();
     }
 
     @Override
     protected void defineUserDataTable() {
-        this.userDataTable = FirebaseDatabase.getInstance().getReference("/managers");
+        this.userDataTable = FirebaseDatabase.getInstance().getReference("clients");
     }
 
     @Override
@@ -24,12 +20,5 @@ public class ManagerViewModel extends ParentViewModel{
         ManagerData manager = snapshot.getValue(ManagerData.class);
         manager.uid = this.user.getValue().uid;
         this.userData.setValue(manager);
-
     }
-
-    public void signUp(String email, String password, String displayName, String company){
-        super.signUp(email, password);
-        this.userData.setValue(new ManagerData(email, displayName, company));
-    }
-
 }

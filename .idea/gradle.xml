@@ -13,6 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/API" />
+            <option value="$PROJECT_DIR$/ClientApp" />
             <option value="$PROJECT_DIR$/ManagerApp" />
             <option value="$PROJECT_DIR$/WatchStarter" />
           </set>

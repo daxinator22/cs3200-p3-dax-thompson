@@ -15,6 +15,7 @@
             android:id="@+id/userData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Getting user data..."/>
 
         <androidx.appcompat.widget.AppCompatButton

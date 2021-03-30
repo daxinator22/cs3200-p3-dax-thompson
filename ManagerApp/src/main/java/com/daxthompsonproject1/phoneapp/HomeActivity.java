@@ -27,14 +27,17 @@ public class HomeActivity extends AppCompatActivity {
             viewModel.signOut();
         });
 
-        AppCompatTextView userData = findViewById(R.id.userData);
+        AppCompatTextView userDataText = findViewById(R.id.userData);
         viewModel.getUser().observe(this, user ->{
             if(user == null) {
                 Intent intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
             }
-            else{
-                userData.setText(user.toString());
+        });
+
+        viewModel.getUserData().observe(this, userData -> {
+            if(userData != null){
+                userDataText.setText(userData.toString());
             }
         });
 

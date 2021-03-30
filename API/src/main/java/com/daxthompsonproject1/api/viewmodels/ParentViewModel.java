@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.daxthompsonproject1.api.models.User;
 import com.daxthompsonproject1.api.models.UserData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +38,13 @@ public abstract class ParentViewModel extends ViewModel {
                     user.setValue(null);
                 } else {
                     user.setValue(new User(fbUser));
+                    userDataTable.child(user.getValue().uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            DataSnapshot snapshot = task.getResult();
+                            updateUserData(snapshot);
+                        }
+                    });
                 }
             }
         });
@@ -61,9 +71,19 @@ public abstract class ParentViewModel extends ViewModel {
     public MutableLiveData<User> getUser() {
         return user;
     }
+    public MutableLiveData<UserData> getUserData(){return userData;}
 
     public void signUp(String email, String password) {
-        auth.createUserWithEmailAndPassword(email, password);
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                String uid = user.getValue().uid;
+                UserData newUser = userData.getValue();
+                newUser.uid = uid;
+                userData.setValue(newUser);
+                userDataTable.child(uid).setValue(newUser);
+            }
+        });
 //        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 //            @Override
 //            public void onComplete(@NonNull Task<AuthResult> task) {

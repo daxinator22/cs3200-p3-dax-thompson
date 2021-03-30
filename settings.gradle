@@ -1,3 +1,4 @@
+include ':ClientApp'
 include ':WatchStarter'
 include ':API'
 include ':ManagerApp'
