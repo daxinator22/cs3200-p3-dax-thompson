@@ -5,8 +5,12 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -16,8 +20,12 @@ import com.daxthompsonproject1.api.models.ManagerData;
 import com.daxthompsonproject1.api.models.Reservation;
 import com.daxthompsonproject1.api.viewmodels.ClientViewModel;
 import com.daxthompsonproject1.api.viewmodels.ManagerViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
+
+    public static final int RECORD_CODE = 1;
+    private boolean isTalking = false;
 
     private ClientViewModel viewModel;
 
@@ -81,7 +89,67 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_CODE);
 
+        SpeechRecognizer recognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        recognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle params) {
 
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int error) {
+
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+                Log.d("SpeechRecognizer", results.toString());
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+
+            }
+        });
+
+        Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        FloatingActionButton speechButton = findViewById(R.id.speech_button);
+        speechButton.setOnClickListener(view -> {
+            if(!isTalking){
+                recognizer.startListening(recognizerIntent);
+                isTalking = true;
+            }
+            else{
+                isTalking = false;
+                recognizer.stopListening();
+            }
+        });
     }
 }

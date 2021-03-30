@@ -7,6 +7,7 @@
     tools:context=".HomeActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,30 +17,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Getting user data..."/>
+            android:text="Getting user data..." />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Out"/>
+            android:text="Sign Out" />
 
         <RadioGroup
             android:id="@+id/managers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/makeReservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Make Reservation"/>
+            android:text="Make Reservation" />
 
         <LinearLayout
             android:id="@+id/reservations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/speech_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/speech_mic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
