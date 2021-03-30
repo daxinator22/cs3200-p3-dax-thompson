@@ -1,5 +1,6 @@
 package com.daxthompsonproject1.api.viewmodels;
 
+import com.daxthompsonproject1.api.models.ClientData;
 import com.daxthompsonproject1.api.models.ManagerData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
@@ -10,6 +11,11 @@ public class ClientViewModel extends ParentViewModel{
         super();
     }
 
+    public void signUp(String email, String password, String displayName){
+        super.signUp(email, password);
+        this.userData.setValue(new ClientData(email, displayName));
+    }
+
     @Override
     protected void defineUserDataTable() {
         this.userDataTable = FirebaseDatabase.getInstance().getReference("clients");
@@ -17,8 +23,9 @@ public class ClientViewModel extends ParentViewModel{
 
     @Override
     protected void updateUserData(DataSnapshot snapshot) {
-        ManagerData manager = snapshot.getValue(ManagerData.class);
-        manager.uid = this.user.getValue().uid;
-        this.userData.setValue(manager);
+        ClientData client = snapshot.getValue(ClientData.class);
+        client.uid = this.user.getValue().uid;
+        this.userData.setValue(client);
     }
+
 }
