@@ -40,5 +40,15 @@ public class HomeActivity extends AppCompatActivity {
                 userDataText.setText(userData.toString());
             }
         });
+
+        AppCompatButton makeReservation = findViewById(R.id.makeReservation);
+        makeReservation.setOnClickListener(view -> {
+            viewModel.makeReservation("test");
+        });
+
+        AppCompatTextView reservations = findViewById(R.id.reservations);
+        viewModel.getWaitList().observe(this, waitlist -> {
+//           reservations.setText(viewModel.getWaitList().getValue().toString());
+        });
     }
 }

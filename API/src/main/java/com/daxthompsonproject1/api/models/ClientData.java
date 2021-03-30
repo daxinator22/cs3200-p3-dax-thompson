@@ -4,8 +4,6 @@ public class ClientData extends UserData{
 
     public ClientData(){
 
-
-
     }
 
     public ClientData(String email, String displayName){

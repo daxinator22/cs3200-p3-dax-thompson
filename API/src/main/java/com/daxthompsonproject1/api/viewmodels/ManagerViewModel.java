@@ -14,6 +14,12 @@ public class ManagerViewModel extends ParentViewModel{
         super();
     }
 
+    public void signUp(String email, String password, String displayName, String company){
+        super.signUp(email, password);
+
+        this.userData.setValue(new ManagerData(email, displayName, company));
+    }
+
     @Override
     protected void defineUserDataTable() {
         this.userDataTable = FirebaseDatabase.getInstance().getReference("/managers");
@@ -27,9 +33,9 @@ public class ManagerViewModel extends ParentViewModel{
 
     }
 
-    public void signUp(String email, String password, String displayName, String company){
-        super.signUp(email, password);
-        this.userData.setValue(new ManagerData(email, displayName, company));
+    @Override
+    protected void updateWaitList(DataSnapshot snapshot) {
+
     }
 
 }
