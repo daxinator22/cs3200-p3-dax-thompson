@@ -3,6 +3,7 @@ package com.daxthompsonproject1.phoneapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -13,7 +14,7 @@ import com.daxthompsonproject1.api.Verify;
 import com.daxthompsonproject1.api.models.Reservation;
 import com.daxthompsonproject1.api.viewmodels.ManagerViewModel;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity{
 
     private ManagerViewModel viewModel;
 
