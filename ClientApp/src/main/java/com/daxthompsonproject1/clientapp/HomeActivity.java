@@ -6,7 +6,11 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -89,67 +93,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_CODE);
+        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
 
-        SpeechRecognizer recognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        recognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle params) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-
-            }
-
-            @Override
-            public void onRmsChanged(float rmsdB) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] buffer) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int error) {
-
-            }
-
-            @Override
-            public void onResults(Bundle results) {
-                Log.d("SpeechRecognizer", results.toString());
-            }
-
-            @Override
-            public void onPartialResults(Bundle partialResults) {
-
-            }
-
-            @Override
-            public void onEvent(int eventType, Bundle params) {
-
-            }
-        });
-
-        Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        FloatingActionButton speechButton = findViewById(R.id.speech_button);
-        speechButton.setOnClickListener(view -> {
-            if(!isTalking){
-                recognizer.startListening(recognizerIntent);
-                isTalking = true;
-            }
-            else{
-                isTalking = false;
-                recognizer.stopListening();
-            }
+        AppCompatTextView locationView = findViewById(R.id.location);
+        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, (location) -> {
+            locationView.setText(String.format("Your current location is %s latitude %s longitude", location.getLatitude(), location.getLongitude()));
         });
     }
 }
