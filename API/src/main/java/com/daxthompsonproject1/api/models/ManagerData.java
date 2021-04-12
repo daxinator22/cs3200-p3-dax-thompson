@@ -6,14 +6,18 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class ManagerData extends UserData{
 
     public String company;
+    public String lat;
+    public String lon;
 
     public ManagerData(){
 
     }
 
-    public ManagerData(String email, String displayName, String company){
+    public ManagerData(String email, String displayName, String company, String lat, String lon){
         super(email, displayName);
         this.company = company;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     @Override
@@ -24,6 +28,8 @@ public class ManagerData extends UserData{
         builder.append("Email: " + email + "\n");
         builder.append("Display Name: " + displayName + "\n");
         builder.append("Company: " + company + "\n");
+        builder.append("Latitude: " + lat + "\n");
+        builder.append("Longitude: " + lon + "\n");
 
         return builder.toString();
     }

@@ -1,5 +1,7 @@
 package com.daxthompsonproject1.api.viewmodels;
 
+import android.location.Location;
+
 import androidx.annotation.NonNull;
 
 import com.daxthompsonproject1.api.models.ManagerData;
@@ -17,10 +19,10 @@ public class ManagerViewModel extends ParentViewModel{
         super();
     }
 
-    public void signUp(String email, String password, String displayName, String company){
-        super.signUp(email, password);
+    public void signUp(String email, String password, String displayName, String company, String lat, String lon){
 
-        this.userData.setValue(new ManagerData(email, displayName, company));
+        super.signUp(email, password);
+        this.userData.setValue(new ManagerData(email, displayName, company, lat, lon));
     }
 
     @Override
@@ -33,6 +35,10 @@ public class ManagerViewModel extends ParentViewModel{
         ManagerData manager = snapshot.getValue(ManagerData.class);
         manager.uid = this.user.getValue().uid;
         this.userData.setValue(manager);
+
+        this.reservationTable.get().addOnCompleteListener(task -> {
+            updateWaitList(task.getResult());
+        });
 
     }
 

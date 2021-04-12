@@ -66,19 +66,5 @@ public class HomeActivity extends AppCompatActivity{
            }
         });
 
-        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-
-        AppCompatTextView locationView = findViewById(R.id.location);
-        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                locationView.setText(String.format("Your location is %s latitude %s longitude", location.getLatitude(), location.getLongitude()));
-            }
-        });
-
-
     }
 }
