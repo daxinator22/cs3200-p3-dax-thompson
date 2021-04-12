@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cs3200p1daxthompson">
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
