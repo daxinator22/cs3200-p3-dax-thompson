@@ -93,14 +93,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//        }
-//        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-//        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, (location) -> {
-//
-//        });
-
         AppCompatButton mapView = findViewById(R.id.mapView);
         mapView.setOnClickListener((view) -> {
             Intent intent = new Intent(this, MapActivity.class);
