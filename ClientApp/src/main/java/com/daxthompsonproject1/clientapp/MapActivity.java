@@ -2,11 +2,14 @@ package com.daxthompsonproject1.clientapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
@@ -40,11 +44,11 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity{
 
     private MapView mapView;
     private ClientViewModel viewModel;
-    private ArrayList<Point> managerLocations;
+    private ArrayList<MarkerView> managerLocations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +62,13 @@ public class MapActivity extends AppCompatActivity {
 
         //On change in managers
         this.viewModel.getManagers().observe(this, managers -> {
-            managerLocations.clear();
+            this.managerLocations.clear();
 
             //Gets all the geo data for managers
             for(ManagerData manager : managers){
-                this.managerLocations.add(Point.fromLngLat(Double.parseDouble(manager.lon), Double.parseDouble(manager.lat)));
+                TextView name = new TextView(this);
+                name.setText(manager.company);
+                managerLocations.add(new MarkerView(new LatLng(Double.parseDouble(manager.lat), Double.parseDouble(manager.lon)), name));
             }
         });
 
@@ -76,6 +82,11 @@ public class MapActivity extends AppCompatActivity {
                     public void onStyleLoaded(@NonNull Style style) {
                         if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                        }
+
+                        MarkerViewManager viewManager = new MarkerViewManager(mapView, mapboxMap);
+                        for(MarkerView marker : managerLocations){
+                            viewManager.addMarker(marker);
                         }
 
                         LocationComponent locationComponent = mapboxMap.getLocationComponent();
@@ -98,13 +109,6 @@ public class MapActivity extends AppCompatActivity {
                             }
                         });
 
-                        style.addSource(new GeoJsonSource("manager_locations",
-                                    FeatureCollection.fromFeatures(new Feature[]{
-                                            Feature.fromGeometry(LineString.fromLngLats(managerLocations))
-                                    })
-                        ));
-
-                        style.addLayer(new LineLayer("line", "manager_locations"));
                     }
                 });
             }
