@@ -23,6 +23,7 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
+import com.mapbox.mapboxsdk.location.OnLocationCameraTransitionListener;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.maps.Image;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -85,8 +86,17 @@ public class MapActivity extends AppCompatActivity {
                         );
 
                         locationComponent.setLocationComponentEnabled(true);
-                        locationComponent.setCameraMode(CameraMode.TRACKING_GPS_NORTH);
-                        locationComponent.zoomWhileTracking(17, 100);
+                        locationComponent.setCameraMode(CameraMode.TRACKING_GPS_NORTH, new OnLocationCameraTransitionListener() {
+                            @Override
+                            public void onLocationCameraTransitionFinished(int cameraMode) {
+                                locationComponent.zoomWhileTracking(15, 100);
+                            }
+
+                            @Override
+                            public void onLocationCameraTransitionCanceled(int cameraMode) {
+
+                            }
+                        });
 
                         style.addSource(new GeoJsonSource("manager_locations",
                                     FeatureCollection.fromFeatures(new Feature[]{
