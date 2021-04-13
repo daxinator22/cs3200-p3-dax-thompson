@@ -19,7 +19,7 @@ public class ManagerViewModel extends ParentViewModel{
         super();
     }
 
-    public void signUp(String email, String password, String displayName, String company, String lat, String lon){
+    public void signUp(String email, String password, String displayName, String company, long lat, long lon){
 
         super.signUp(email, password);
         this.userData.setValue(new ManagerData(email, displayName, company, lat, lon));

@@ -20,8 +20,8 @@ import com.daxthompsonproject1.api.viewmodels.ManagerViewModel;
 public class SignUpActivity extends AppCompatActivity {
 
     private ManagerViewModel viewModel;
-    private String lat;
-    private String lon;
+    private long lat;
+    private long lon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, (location) -> {
-            this.lat = location.getLatitude() + "";
-            this.lon = location.getLongitude() + "";
+            this.lat = (long) location.getLatitude();
+            this.lon = (long) location.getLongitude();
         });
 
         AppCompatButton signUp = findViewById(R.id.signUp);

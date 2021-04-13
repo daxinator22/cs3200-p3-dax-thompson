@@ -1,5 +1,6 @@
 package com.daxthompsonproject1.api.models;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
@@ -13,11 +14,11 @@ public class ManagerData extends UserData{
 
     }
 
-    public ManagerData(String email, String displayName, String company, String lat, String lon){
+    public ManagerData(String email, String displayName, String company, long lat, long lon){
         super(email, displayName);
         this.company = company;
-        this.lat = lat;
-        this.lon = lon;
+        this.lat = lat + "";
+        this.lon = lon + "";
     }
 
     @Override
